@@ -1,0 +1,79 @@
+<% 
+  player_1_wins = 0
+  player_2_wins = 0
+%>
+<div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <div>
+    <h3 class="text-base font-semibold leading-6 text-gray-900">Poker Game Shenanigans</h3>
+    <div class="text-xs mt-3 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden md:grid-cols-3 md:divide-x md:divide-y-0">
+      <div>Player 1</div>
+      <div>Player 2</div>
+      <div>Tally</div>
+    </div>
+    <% games.each do |poker_hand| %>
+      <dl class="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-x md:divide-y-0">
+        <div class="px-4 py-5 sm:p-6">
+          <dt class="text-base font-normal text-gray-900 flex space-x-2">
+            <div><%= poker_hand.first.to_s %></div>
+            <% if poker_hand.first.score > poker_hand.second.score %>
+              <div class="inline-flex items-baseline rounded-full px-2.5 py-0.5 text-sm font-medium bg-green-100 text-green-800 md:mt-2 lg:mt-0">
+                WINNER
+              </div>
+            <% end %>
+          </dt>
+          <dd class="mt-3 flex items-baseline justify-between md:block lg:flex">
+            <div class="flex text-xs items-baseline font-semibold space-x-2">
+              <% poker_hand.first.hand.each do |card| %>
+                <div>
+                  <%= image_tag card.to_s, class: "w-16" %>
+                  <div class="mt-1 text-center"><%= card.to_s %></div>
+                </div>
+              <% end %>
+            </div>
+          </dd>
+        </div>
+        <div class="px-4 py-5 sm:p-6">
+          <dt class="text-base font-normal text-gray-900 flex space-x-2">
+            <div><%= poker_hand.second.to_s %></div>
+            <% if poker_hand.first.score < poker_hand.second.score %>
+              <div class="inline-flex items-baseline rounded-full px-2.5 py-0.5 text-sm font-medium bg-green-100 text-green-800 md:mt-2 lg:mt-0">
+                WINNER
+              </div>
+            <% end %>
+          </dt>
+          <dd class="mt-3 flex items-baseline justify-between md:block lg:flex">
+            <div class="flex text-xs items-baseline font-semibold space-x-2">
+              <% poker_hand.second.hand.each do |card| %>
+                <div>
+                  <%= image_tag card.to_s, class: "w-16" %>
+                  <div class="mt-1 text-center"><%= card.to_s %></div>
+                </div>
+              <% end %>
+            </div>
+          </dd>
+        </div>
+        <div class="px-4 py-5 sm:p-6">
+          <% 
+            if poker_hand.first.score > poker_hand.second.score 
+              player_1_wins += 1
+            else
+              player_2_wins += 1
+            end
+          %>
+          <dt class="text-base font-normal text-gray-900">Player 1 Wins</dt>
+          <dd class="mt-1 flex items-baseline justify-between md:block lg:flex">
+            <div class="flex items-baseline text-2xl font-semibold text-indigo-600">
+              <%= player_1_wins %>
+            </div>
+          </dd>
+          <dt class="text-base font-normal text-gray-900">Player 2 Wins</dt>
+          <dd class="mt-1 flex items-baseline justify-between md:block lg:flex">
+            <div class="flex items-baseline text-2xl font-semibold text-indigo-600">
+              <%= player_2_wins %>
+            </div>
+          </dd>
+        </div>
+      </dl>
+    <% end %>
+  </div>
+</div>
