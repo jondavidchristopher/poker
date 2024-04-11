@@ -81,7 +81,7 @@ class PokerHand
   end
 
   def card_values
-    @hand.map { |c| [c.face, c.suit] }.sort.each_with_index.map { |c, i| ((c.first * 10) + c.second) * (10 * (i + 1)) }.sum
+    @hand.map { |c| [c.face, c.suit] }.sort.each_with_index.map { |c, i| ((c.first * 10) + c.second) * ((i + 1) ** 10) }.sum / 10.0 ** 10
   end
 
   def to_s
@@ -90,6 +90,6 @@ class PokerHand
 
   def score
     hand_score = HANDS.count - (HANDS.each_with_index.find { |h, i| send h.second }&.second) - 1
-    (hand_score * 10000000) + (highest_three_of_a_kind_value * 1000000) + (highest_pair_value * 100000) + (lowest_pair_value * 50000) + card_values
+    (hand_score * 10 ** 5) + (highest_three_of_a_kind_value * 10 ** 4) + (highest_pair_value * 10 ** 3) + (lowest_pair_value * 10 ** 2) + card_values
   end
 end

@@ -105,12 +105,12 @@ class PokerHandTest < ActiveSupport::TestCase
   end
 
   def test_card_values
-    assert_equal 13070, highest_card.card_values
+    assert_equal 0.1098644169, highest_card.card_values
   end
 
   def test_score
-    assert_equal 90018100, royal_flush.score
-    assert_equal 13070, highest_card.score
+    assert_equal 900000.144545535, royal_flush.score
+    assert_equal 0.1098644169, highest_card.score
   end
 
   def test_to_s
